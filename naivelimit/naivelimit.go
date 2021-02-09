@@ -1,6 +1,7 @@
 package naivelimit
 
 import (
+	"fmt"
 	"bytes"
 	"errors"
 	"github.com/n3integration/classifier"
