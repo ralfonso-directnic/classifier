@@ -1,3 +1,3 @@
-module github.com/n3integration/classifier
+module github.com/ralfonso-directnic/classifier
 
 go 1.14
