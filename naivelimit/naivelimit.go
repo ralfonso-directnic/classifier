@@ -119,10 +119,20 @@ func (c *Classifier) addFeature(feature string, category string) {
 }
 
 func (c *Classifier) featureCount(feature string, category string) float64 {
+	
+	fc := 0.0
+	
 	if _, ok := c.feat2cat[feature]; ok {
-		return float64(c.feat2cat[feature][category])
+		fc = float64(c.feat2cat[feature][category])
 	}
-	return 0.0
+	
+	if( Verbose == true ){ 
+	
+		fmt.Printf("Feature Count for %s in %s is %d",feature,category,fc)
+	  
+	}
+	
+	return fc
 }
 
 func (c *Classifier) addCategory(category string) {
@@ -198,7 +208,7 @@ func (c *Classifier) docProbability(r io.Reader, category string) float64 {
 	}
 	
 	if(reset == true){
-	 probability = 0
+	 //probability = 0
 	}
 	
 	return probability
