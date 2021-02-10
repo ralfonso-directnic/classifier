@@ -93,6 +93,13 @@ func (c *Classifier) Classify(r io.Reader) (string, error) {
 	return classification, err
 }
 
+// (eg. because the classifier has not been trained), an error is returned.
+func (c *Classifier) Dump(){ 
+
+	fmt.Printf("%#v\n",c.feat2cat)
+	fmt.Printf("%#v\n",c.catCount)	
+}
+
 // ClassifyString provides convenience classification for strings
 func (c *Classifier) ClassifyString(doc string) (string, error) {
 	return c.Classify(asReader(doc))
