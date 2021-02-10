@@ -187,17 +187,17 @@ func (c *Classifier) probability(r io.Reader, category string) float64 {
 
 func (c *Classifier) docProbability(r io.Reader, category string) float64 {
 	probability := 1.0
-	reset = false
+	reset := true
 	
 	for feature := range c.tokenizer.Tokenize(r) {
 		probability *= c.weightedProbability(feature, category)
-                reset = true
+                reset = false
 		if Verbose == true {
 			fmt.Printf("Doc Sub Probability for %s in %s is %f\n", feature, category, probability)
 		}
 	}
 	
-	if(reset == true && probability == 1){
+	if(reset == true){
 	 probability = 0
 	}
 	
