@@ -128,7 +128,7 @@ func (c *Classifier) featureCount(feature string, category string) float64 {
 	
 	if( Verbose == true ){ 
 	
-		fmt.Printf("Feature Count for %s in %s is %d",feature,category,fc)
+		fmt.Printf("Feature Count for %s in %s is %d\n",feature,category,fc)
 	  
 	}
 	
