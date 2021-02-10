@@ -197,7 +197,7 @@ func (c *Classifier) docProbability(r io.Reader, category string) float64 {
 		}
 	}
 	
-	if(reset == true AND probability == 1){
+	if(reset == true && probability == 1){
 	 probability = 0
 	}
 	
