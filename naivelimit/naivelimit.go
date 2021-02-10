@@ -86,6 +86,12 @@ func (c *Classifier) Classify(r io.Reader) (string, error) {
 			classification = category
 		}
 	}
+	
+	if Verbose == true { 
+	
+		fmt.Printf("Probabilites by Cat:\n%#v\n", probabilities)
+	
+	}
 
 	if classification == "" {
 		return "", ErrNotClassified
@@ -167,8 +173,15 @@ func (c *Classifier) variableWeightedProbability(feature string, category string
 }
 
 func (c *Classifier) probability(r io.Reader, category string) float64 {
+	
 	categoryProbability := c.categoryCount(category) / float64(c.count())
 	docProbability := c.docProbability(r, category)
+	
+	if Verbose == true {
+		fmt.Printf("Category Probability: %f\n", categoryProbability)
+		fmt.Printf("Doc Probability: %f\n", docProbability)
+	}
+	
 	return docProbability * categoryProbability
 }
 
@@ -178,7 +191,7 @@ func (c *Classifier) docProbability(r io.Reader, category string) float64 {
 		probability *= c.weightedProbability(feature, category)
 
 		if Verbose == true {
-			fmt.Printf("Probability for %s in %s is %f\n", feature, category, probability)
+			fmt.Printf("Doc Sub Probability for %s in %s is %f\n", feature, category, probability)
 		}
 	}
 	return probability
