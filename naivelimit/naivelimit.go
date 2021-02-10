@@ -13,9 +13,13 @@ import (
 var ErrNotClassified = errors.New("unable to classify document")
 
 var Verbose bool
+var AssumedProb float64
+var Weight float64
 
 func init() {
 	Verbose = false
+	Weight = 1.0
+	AssumedProb  = 0.5
 }
 
 // Option provides a functional setting for the Classifier
@@ -170,7 +174,7 @@ func (c *Classifier) featureProbability(feature string, category string) float64
 }
 
 func (c *Classifier) weightedProbability(feature string, category string) float64 {
-	return c.variableWeightedProbability(feature, category, 1.0, 0.5)
+	return c.variableWeightedProbability(feature, category, Weight, AssumedProb)
 }
 
 func (c *Classifier) variableWeightedProbability(feature string, category string, weight float64, assumedProb float64) float64 {
