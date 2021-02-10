@@ -89,7 +89,7 @@ func (c *Classifier) Classify(r io.Reader) (string, error) {
 	
 	if Verbose == true { 
 	
-		fmt.Printf("Probabilites by Cat:\n%#v\n", probabilities)
+		fmt.Printf("Probabilites by Category:\n%#v\n", probabilities)
 	
 	}
 
@@ -178,7 +178,7 @@ func (c *Classifier) probability(r io.Reader, category string) float64 {
 	docProbability := c.docProbability(r, category)
 	
 	if Verbose == true {
-		fmt.Printf("Category Probability: %f\n", categoryProbability)
+		fmt.Printf("Category Probability for %s: %f\n", category,categoryProbability)
 		fmt.Printf("Doc Probability: %f\n", docProbability)
 	}
 	
@@ -187,13 +187,20 @@ func (c *Classifier) probability(r io.Reader, category string) float64 {
 
 func (c *Classifier) docProbability(r io.Reader, category string) float64 {
 	probability := 1.0
+	reset = false
+	
 	for feature := range c.tokenizer.Tokenize(r) {
 		probability *= c.weightedProbability(feature, category)
-
+                reset = true
 		if Verbose == true {
 			fmt.Printf("Doc Sub Probability for %s in %s is %f\n", feature, category, probability)
 		}
 	}
+	
+	if(reset == true AND probability == 1){
+	 probability = 0
+	}
+	
 	return probability
 }
 
